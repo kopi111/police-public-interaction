@@ -1,0 +1,29 @@
+POLICE PUBLIC INTERACTION - TEACH AN AI (started 2026-11-04)
+
+Question the AI answers:
+  Using only what is known when a stop begins, how likely is this stop to end in an arrest?
+
+Dataset: Seattle Terry Stops (City of Seattle open data, id 28ny-9ts8)
+
+[x] Download the data to data/raw/
+[x] Check the data for traps
+    - Arrest Flag is empty before 2019, so use Stop Resolution as the answer
+    - Blank call type / precinct is an old record-keeping pattern, so drop those rows
+    - Weapon, frisk, final call type and subject ID give the answer away, so never use them
+    - Race, gender, age and officer details are not given to the AI
+[x] Build the notebook, with plain-English comments on every step
+[x] Train on 2015-2023, choose the model on 2024, final exam on 2025-2026
+[x] Check fairness across perceived race groups
+[x] Save the model, reload it and run it on example stops
+[x] Write INSTRUCTIONS.txt
+
+CHANGE 2026-11-04: kopi wants an LLM to ask questions, not a percentage calculator
+[x] Build the question assistant: local Qwen3-4B plans, Python works out the numbers, LLM writes the reply
+[x] Throw out any reply containing a number the data did not produce
+[x] Keep the arrest model as the answer to "what is the chance of..." questions
+[x] Refuse questions about named people and questions outside the data
+[x] Notebook: teach, ask, and score it on test questions with separately calculated answers
+[x] Replace the dropdown test page with a chat page on :5385
+
+First score 2026-11-04: 22 of 34. Language model drops filters, so Python now reads them from the question.
+[x] Re-score, with 10 new questions not used for fixing: new questions 9 of 10 before the on-view fix

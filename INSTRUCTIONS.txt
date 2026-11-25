@@ -1,0 +1,53 @@
+POLICE PUBLIC INTERACTION - HOW TO RUN IT
+
+What this is
+  An AI you can type questions to, about Seattle police stops from 2015 to 3 November 2026.
+  A language model on this laptop (Qwen3-4B, through Ollama) reads the question and writes the reply.
+  Python works out every number from the real data. The language model was not retrained on the data.
+  A separate arrest model answers "what is the chance of..." questions.
+  Data: Seattle Terry Stops, City of Seattle open data, public domain. Downloaded 2026-11-04.
+  This is a learning project. Do not use it to make decisions about real people.
+
+Ask questions on the chat page (easiest)
+  1. Open a terminal and run:
+       cd ~/projects/police-public-interaction
+       .venv/bin/python ask_page.py
+  2. Open http://127.0.0.1:5385 in your browser.
+  3. Type a question and click Ask. Each answer takes about 30 seconds.
+  4. Press Ctrl+C in the terminal to stop the page.
+
+Ask questions and see the scores in the notebook
+  1. Run:
+       .venv/bin/jupyter lab ask_questions.ipynb
+  2. Change the question in Step 2 and run that cell.
+  3. Step 3 re-scores the assistant. It takes about 10 minutes.
+
+Open the arrest model notebook
+  1. Open a terminal and run:
+       cd ~/projects/police-public-interaction
+       .venv/bin/jupyter lab police_public_interaction.ipynb
+  2. If it asks for a kernel, choose "Police Public Interaction (venv)".
+  3. To run everything: Run menu > Run All Cells. It takes under a minute.
+
+Try your own stop in the notebook
+  1. Go to Step 10 at the bottom of the notebook.
+  2. Change a stop in the example_stops list, or copy one and edit it.
+  3. Run that cell.
+  The wording of the call details must match the data. The allowed values are in
+  models/arrest_outcome_model_details.json. If the wording is wrong, you get an error naming the detail.
+
+Files
+  ask_page.py                                 The chat page
+  stop_question_assistant.py                  The assistant's code
+  ask_questions.ipynb                         Notebook to ask questions and score the assistant
+  police_public_interaction.ipynb             Notebook that teaches the arrest model
+  data/raw/terry_stops.csv                    The data
+  models/arrest_outcome_model.joblib          The taught AI
+  models/arrest_outcome_model_details.json    Its scores, correction, alert level and allowed values
+  charts/                                     Copies of the charts
+  TODO-current.txt                            Progress list
+  requirements.txt                            Python packages used
+
+Use new data
+  Delete data/raw/terry_stops.csv and run the notebook again. It downloads the newest copy.
+  The scores will change, and the numbers written in "What we found" will need updating by hand.
